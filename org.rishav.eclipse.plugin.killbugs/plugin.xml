@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.menus">
+   	<menuContribution
+	    locationURI= "popup:org.eclipse.ui.popup.any">
+	    <menu 
+	    	id="org.rishav.eclipse.plugin.killbugs" label="KillBugs"
+	    	 icon="icons/sample.gif">
+	    </menu>
+	 </menuContribution>
+    <menuContribution
+          allPopups="true"
+          locationURI="popup:org.rishav.eclipse.plugin.killbugs">
+      <command commandId="stringcomparisonfix.convert"
+        label="Fix String Comparison" style="push">
+	        <visibleWhen>
+		   		<or>
+				    <with variable="activePartId">
+				      <equals value="org.eclipse.jdt.ui.CompilationUnitEditor" />
+				    </with>
+				    <with variable="activeMenuSelection">
+				      <iterate ifEmpty="false" operator="and">
+				        <or>
+				          <adapt type="org.eclipse.jdt.core.ICompilationUnit" />
+				        </or>
+				      </iterate>
+				    </with>
+			  </or>
+	       </visibleWhen> 
+      </command>
+    </menuContribution>
+  </extension>
+  
+  <extension point="org.eclipse.ui.commands">
+    <command defaultHandler="org.rishav.eclipse.plugin.killbugs.StringComparisonFixtHandler"
+      id="stringcomparisonfix.convert" name="FixStringComparison">
+    </command>
+  </extension>
+
+</plugin>
